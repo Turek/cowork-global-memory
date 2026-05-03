@@ -31,14 +31,23 @@ on disk, but accessible regardless of which folder Cowork has mounted.
    brew install basic-memory
    ```
 
-## Install (Cowork)
+## Install
 
-### Option 1 — `.plugin` file
+### Option 1 — From GitHub (recommended)
+
+In Claude Code or Cowork:
+
+```
+/plugin marketplace add Turek/cowork-global-memory
+/plugin install global-memory@cowork-global-memory
+```
+
+### Option 2 — `.plugin` file
 
 Drag the built `global-memory.plugin` file into Cowork. Confirm install
 when prompted.
 
-### Option 2 — From source
+### Option 3 — From local source
 
 Clone this repo somewhere stable, then in Cowork:
 
