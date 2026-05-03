@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "basic-memory": {
+      "command": "/bin/bash",
+      "args": [
+        "-lc",
+        "BASIC_MEMORY_HOME=\"$HOME/Documents/Claude/Memory\" basic-memory mcp"
+      ]
+    }
+  }
+}
