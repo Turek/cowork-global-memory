@@ -124,6 +124,37 @@ promoted to the `claude` hot cache.
 
 All files use YAML frontmatter so Basic Memory indexes them correctly.
 
+## Claude Code users — wiring it into `~/.claude/CLAUDE.md`
+
+The plugin works in Cowork out of the box because Cowork loads plugin
+hooks and MCP servers automatically. For the Claude Code CLI / desktop
+app, install the plugin the same way (`claude plugins add
+/path/to/global-memory`) and then add the snippet below to your global
+`~/.claude/CLAUDE.md` so every session knows the memory store exists
+and how to reach it:
+
+```markdown
+## Global memory (basic-memory MCP)
+
+A cross-project memory store is available via the `basic-memory` MCP
+server, installed by the `global-memory` plugin. The hot cache is
+pre-loaded at session start. For anything not in the hot cache:
+
+- `mcp__basic-memory__read_note` — permalinks: `claude` (hot cache),
+  `glossary`, `preferences`, `people/<slug>`, `projects/<slug>`,
+  `decisions/<YYYY-MM-DD>-<slug>`, `daily/<YYYY-MM-DD>`.
+- `mcp__basic-memory__search_notes` — fuzzy search across all notes.
+- `mcp__basic-memory__write_note` — add or update a note.
+
+Use `/remember <fact>` to push a new fact in. Use `/memory-bootstrap`
+to seed an empty store.
+```
+
+For per-repo `CLAUDE.md` files (one per project), run
+`scripts/inject-memory-pointer.sh` to append a shorter pointer block to
+every `~/Documents/Claude/Project*/CLAUDE.md` in one pass. The script
+is idempotent — re-running skips files that already contain the marker.
+
 ## Coexistence with `productivity:memory-management`
 
 The upstream skill writes the same files via direct Read/Write/Edit.
