@@ -1,5 +1,6 @@
 ---
-description: Push a fact into global memory (people, projects, acronyms, decisions, preferences, daily journal).
+name: remember
+description: Push a fact into global memory (people, projects, acronyms, decisions, preferences, daily journal). Routes to the right destination via Basic Memory MCP.
 argument-hint: <fact to remember>
 ---
 

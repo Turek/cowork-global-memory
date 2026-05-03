@@ -1,5 +1,6 @@
 ---
-description: Seed the global memory store on a fresh machine — asks the user about themselves, contacts, projects, and shorthand, then writes the foundational notes.
+name: memory-bootstrap
+description: Seed the global memory store on a fresh machine — asks the user about themselves, contacts, projects, and shorthand, then writes the foundational notes via Basic Memory MCP.
 ---
 
 The user is bootstrapping global memory on a fresh machine. Your job is

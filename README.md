@@ -15,8 +15,8 @@ client-agnostic access.
 | Component | Purpose |
 |-----------|---------|
 | `skills/memory-management/SKILL.md` | Auto-triggered skill. Decodes shorthand, looks up via Basic Memory MCP, writes new facts. |
-| `commands/memory-bootstrap.md` | `/memory-bootstrap` — interview-style first-time setup that seeds the memory store with people, projects, acronyms, and preferences. |
-| `commands/remember.md` | `/remember <fact>` — explicit verb to push a fact into memory. Classifies and routes to the right destination. |
+| `skills/memory-bootstrap/SKILL.md` | `/memory-bootstrap` — interview-style first-time setup that seeds the memory store with people, projects, acronyms, and preferences. |
+| `skills/remember/SKILL.md` | `/remember <fact>` — explicit verb to push a fact into memory. Classifies and routes to the right destination. |
 | `hooks/hooks.json` + `hooks/preload-hot-cache.sh` | SessionStart hook. Auto-loads `CLAUDE.md` (hot cache) into session context so memory feels automatic. |
 | `scripts/inject-memory-pointer.sh` | Adds a "global memory exists" pointer block to every per-project `CLAUDE.md` under `~/Documents/Claude/Project*/`. Idempotent. |
 | `.mcp.json` | Registers the `basic-memory` MCP server, pointed at the `memory` project. |
@@ -215,7 +215,7 @@ usage to justify the effort.
 
 ## Versioning
 
-Semver. Current: `0.2.1`.
+Semver. Current: `0.2.2`.
 
 ## License
 

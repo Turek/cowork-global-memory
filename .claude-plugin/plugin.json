@@ -1,6 +1,6 @@
 {
   "name": "global-memory",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Cross-project workplace memory backed by Basic Memory MCP. Two-tier system (hot cache + full notes) accessible from any Cowork workspace.",
   "author": {
     "name": "Tomasz Turczynski"
