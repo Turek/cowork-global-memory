@@ -165,7 +165,7 @@ upstream skill cannot see files outside the selected folder.
 
 ## Versioning
 
-Semver. Current: `0.1.0`.
+Semver. Current: `0.2.0`.
 
 ## License
 
