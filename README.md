@@ -172,23 +172,30 @@ export BASIC_MEMORY_HOME=/path/to/your/memory
 
 Easiest: run `/memory-wire` from any Cowork or Claude Code session.
 The skill wraps the bundled injector script and reports which files
-got the pointer and which were skipped. Pass a custom root if your
-projects live outside `~/Documents/Claude/`:
+were created, had the pointer injected, or were skipped. Pass the
+project umbrella as the root:
 
 ```
-/memory-wire /custom/projects/root
+/memory-wire ~/Projects/Sedno
 ```
 
-The underlying script is at
-`scripts/inject-memory-pointer.sh` and can also be run directly from
-the shell:
+Behaviour: the passed path is treated as the umbrella. The script
+ensures the pointer block exists in the umbrella's own `CLAUDE.md`
+and in every direct subdirectory's `CLAUDE.md`. Hidden directories
+and common noise (`node_modules`, `.git`, `.venv`, `dist`, `build`,
+`.idea`, `.vscode`, etc.) are skipped.
+
+The underlying script is at `scripts/inject-memory-pointer.sh` and
+can also be run directly:
 
 ```bash
-~/Documents/Claude/global-memory/scripts/inject-memory-pointer.sh
+~/Documents/Claude/global-memory/scripts/inject-memory-pointer.sh ~/Projects/Sedno
 ```
 
-Either way it's idempotent — re-runs skip files that already contain
-the marker.
+Either way it's idempotent — files that already contain the marker
+are skipped. Missing `CLAUDE.md` files are created with just the
+pointer block so every project root carries the cross-project memory
+hint.
 
 ## Wiring into Claude Code's `~/.claude/CLAUDE.md`
 
@@ -229,7 +236,7 @@ usage to justify the effort.
 
 ## Versioning
 
-Semver. Current: `0.2.3`.
+Semver. Current: `0.2.4`.
 
 ## License
 

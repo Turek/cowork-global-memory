@@ -35,11 +35,11 @@ The script is idempotent — files that already contain the
 
 ## 3. Report output
 
-Show the script's stdout verbatim. It lists each file that got the
-pointer injected, plus a final summary with counts of injected vs
-skipped files.
+Show the script's stdout verbatim. It lists each file that was
+created or had the pointer injected, plus a final summary with counts
+of created vs injected vs skipped files.
 
-If the script reports `No CLAUDE.md found under <root>/Project*/`,
+If the script reports `No Project*/ directories found under <root>`,
 suggest re-running with a custom root:
 
 ```
@@ -50,6 +50,6 @@ suggest re-running with a custom root:
 
 Reply with one line summarising the script's totals:
 
-`Injected: N. Skipped: M.`
+`Created: N. Injected: M. Skipped: K.`
 
 Nothing else.
