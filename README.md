@@ -17,6 +17,7 @@ client-agnostic access.
 | `skills/memory-management/SKILL.md` | Auto-triggered skill. Decodes shorthand, looks up via Basic Memory MCP, writes new facts. |
 | `skills/memory-bootstrap/SKILL.md` | `/memory-bootstrap` — interview-style first-time setup that seeds the memory store with people, projects, acronyms, and preferences. |
 | `skills/remember/SKILL.md` | `/remember <fact>` — explicit verb to push a fact into memory. Classifies and routes to the right destination. |
+| `skills/memory-wire/SKILL.md` | `/memory-wire [root-dir]` — runs the injector script to append the global-memory pointer block to every per-project `CLAUDE.md`. Idempotent. |
 | `hooks/hooks.json` + `hooks/preload-hot-cache.sh` | SessionStart hook. Auto-loads `CLAUDE.md` (hot cache) into session context so memory feels automatic. |
 | `scripts/inject-memory-pointer.sh` | Adds a "global memory exists" pointer block to every per-project `CLAUDE.md` under `~/Documents/Claude/Project*/`. Idempotent. |
 | `.mcp.json` | Registers the `basic-memory` MCP server, pointed at the `memory` project. |
@@ -101,6 +102,10 @@ needing to be told.
   E.g. `/remember Jane Smith is the new platform lead, prefers Slack DMs`.
   The skill classifies the fact, picks the right permalink, writes it.
 - **First-time setup** — `/memory-bootstrap`.
+- **Wire per-project CLAUDE.md files** — `/memory-wire [root-dir]`.
+  Runs the bundled injector script to append the global-memory pointer
+  block to every `CLAUDE.md` under `~/Documents/Claude/Project*/` (or
+  a custom root). Idempotent.
 
 ## Lookup chain
 
@@ -165,16 +170,25 @@ export BASIC_MEMORY_HOME=/path/to/your/memory
 
 ## Wiring into per-project `CLAUDE.md`
 
-Run the injector to append a pointer block to every per-project
-`CLAUDE.md` under `~/Documents/Claude/Project*/`:
+Easiest: run `/memory-wire` from any Cowork or Claude Code session.
+The skill wraps the bundled injector script and reports which files
+got the pointer and which were skipped. Pass a custom root if your
+projects live outside `~/Documents/Claude/`:
+
+```
+/memory-wire /custom/projects/root
+```
+
+The underlying script is at
+`scripts/inject-memory-pointer.sh` and can also be run directly from
+the shell:
 
 ```bash
 ~/Documents/Claude/global-memory/scripts/inject-memory-pointer.sh
 ```
 
-Pass a custom root as the first argument if your projects live
-elsewhere. The script is idempotent — re-runs skip files that already
-contain the marker.
+Either way it's idempotent — re-runs skip files that already contain
+the marker.
 
 ## Wiring into Claude Code's `~/.claude/CLAUDE.md`
 
@@ -215,7 +229,7 @@ usage to justify the effort.
 
 ## Versioning
 
-Semver. Current: `0.2.2`.
+Semver. Current: `0.2.3`.
 
 ## License
 
