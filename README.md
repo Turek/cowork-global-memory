@@ -236,7 +236,7 @@ usage to justify the effort.
 
 ## Versioning
 
-Semver. Current: `0.2.4`.
+Semver. Current: `0.2.6`.
 
 ## License
 
