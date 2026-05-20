@@ -1,29 +1,25 @@
 # TODO
 
-Items deferred to v0.3+. Build only after enough real usage to justify
-the effort — premature builds against thin data are wasted work.
+## v0.4 — Deferred
 
-## Dashboard HTML
+### Dashboard HTML
 
-Single-file HTML board view of the memory store: recent notes, current
-hot cache contents, today's daily journal, and quick links to people /
-projects.
+Single-file HTML board view: recent notes, hot cache, today's journal,
+quick links. Build after 3+ months of usage — no volume yet to justify.
 
-- Crib pattern from `productivity:memory-management/skills/dashboard.html`.
-- Read notes via Basic Memory MCP (or directly off disk if the
-  dashboard is rendered server-side / by a one-shot script).
-- Build only after **3+ months** of usage — the dashboard is only
-  useful when there is enough volume to scan, otherwise it duplicates
-  what `/remember` and `read_note("claude")` already provide.
+- Crib from `productivity:memory-management/skills/dashboard.html`.
+- Read via Basic Memory MCP or direct disk read.
 
-## Scheduled consolidation
+## Done (v0.3)
 
-Weekly cron / scheduled-task that folds `daily/<YYYY-MM-DD>` entries
-into topical files (people, projects, decisions) so the daily folder
-does not become an unsearchable junk drawer.
+- reflect skill + command ✅
+- consolidate skill + command ✅
+- memory-wire: auto-detect Cowork workspace path ✅
+- memory-management: mandatory session lifecycle (start check, end write) ✅
 
-- Detect entries that reference a known person/project and propose
-  promoting the bullet into that note's history section.
-- Leave the daily entry intact (audit trail) but mark it consolidated.
-- Build only after **3+ months** of accumulated daily notes — without
-  volume there is nothing to consolidate.
+## Done (v0.2)
+
+- SessionStart hook (preload-hot-cache.sh) ✅
+- Stop hook (session-close.sh) ✅
+- memory-bootstrap, remember, memory-wire skills ✅
+- inject-memory-pointer.sh script ✅
