@@ -14,12 +14,16 @@ client-agnostic access.
 
 | Component | Purpose |
 |-----------|---------|
-| `skills/memory-management/SKILL.md` | Auto-triggered skill. Decodes shorthand, looks up via Basic Memory MCP, writes new facts. |
-| `skills/memory-bootstrap/SKILL.md` | `/memory-bootstrap` — interview-style first-time setup that seeds the memory store with people, projects, acronyms, and preferences. |
-| `skills/remember/SKILL.md` | `/remember <fact>` — explicit verb to push a fact into memory. Classifies and routes to the right destination. |
-| `skills/memory-wire/SKILL.md` | `/memory-wire [root-dir]` — runs the injector script to append the global-memory pointer block to every per-project `CLAUDE.md`. Idempotent. |
-| `hooks/hooks.json` + `hooks/preload-hot-cache.sh` | SessionStart hook. Auto-loads `CLAUDE.md` (hot cache) into session context so memory feels automatic. |
-| `scripts/inject-memory-pointer.sh` | Adds a "global memory exists" pointer block to every per-project `CLAUDE.md` under `~/Documents/Claude/Project*/`. Idempotent. |
+| `skills/memory-management/SKILL.md` | Auto-triggered. Decodes shorthand, lookups via Basic Memory MCP, session lifecycle (start check + end write). |
+| `skills/memory-bootstrap/SKILL.md` | `/memory-bootstrap` — interview-style first-time setup: seeds people, projects, acronyms, preferences. |
+| `skills/remember/SKILL.md` | `/remember <fact>` — push a fact into memory. Classifies and routes to the right destination. |
+| `skills/memory-wire/SKILL.md` | `/memory-wire [root-dir]` — injects the global-memory pointer block into per-project `CLAUDE.md` files. Auto-detects Cowork workspace path. Idempotent. |
+| `skills/reflect/SKILL.md` | `/reflect [days=7]` — reads recent daily notes, identifies correction patterns, proposes updates to preferences. Writes proposals to `decisions/` only — nothing applied without review. |
+| `skills/consolidate/SKILL.md` | `/consolidate [days=30]` — scans daily notes for promotable facts (people, projects, decisions, glossary). Presents plan, awaits confirmation, then moves facts to permanent notes. |
+| `hooks/hooks.json` | Hook manifest. SessionStart loads hot cache; Stop writes a session-close marker to today's daily note. |
+| `hooks/preload-hot-cache.sh` | SessionStart hook. Reads `CLAUDE.md` from the vault and injects it into session context. |
+| `hooks/session-close.sh` | Stop hook. Creates/appends a `## Session closed` entry to today's daily note when a session ends. |
+| `scripts/inject-memory-pointer.sh` | Adds the global-memory pointer block to per-project `CLAUDE.md` files. Idempotent. |
 | `.mcp.json` | Registers the `basic-memory` MCP server, pointed at the `memory` project. |
 | `.claude-plugin/plugin.json` | Plugin manifest. |
 | `.claude-plugin/marketplace.json` | Marketplace manifest for `claude plugins` / `/plugin` install. |

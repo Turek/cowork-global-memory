@@ -90,17 +90,57 @@ worth keeping:
 5. Promotion: if the item is used frequently or part of active work,
    also update the `claude` note to add it to the hot cache.
 
-## Daily journal
+## Session lifecycle
 
-Each session of substantial work, append to today's daily note
-(`daily/<YYYY-MM-DD>`):
+### Session start
 
-- What happened.
-- What was learned.
-- Decisions made.
+When a session begins and the hot cache is loaded, check whether the
+previous session left a `## Session closed` entry in the most recent
+daily note without a subsequent summary. If it did, mention it briefly:
+"Last session ended without a written summary — anything worth capturing?"
 
-If today's note does not exist, create it. If it exists, read, append,
-write back.
+Do not make this intrusive. One sentence is enough. Skip if today's
+daily note does not exist yet.
+
+### Session end (before the user leaves)
+
+When the user says goodbye, thanks, done, or similar closing signals,
+before responding:
+
+1. Call `mcp__basic-memory__read_note` with `daily/<YYYY-MM-DD>` for
+   today. Create it if absent.
+2. Append a `## Session summary — HH:MM` section with:
+   - What was accomplished (bullet list, keep tight).
+   - Any decisions made.
+   - Any facts that should be promoted to hot cache or deep storage.
+3. Write the updated note back.
+4. If any items warrant promotion (active project, frequent person, new
+   decision), write those notes too.
+5. Confirm to the user in one line: "Session summary written to
+   `daily/<YYYY-MM-DD>`."
+
+**This step is mandatory on every session that involved non-trivial
+work.** The Stop hook writes a `## Session closed` marker automatically,
+but it carries no content. The summary above is Claude's responsibility.
+
+### Daily journal
+
+Append to today's daily note (`daily/<YYYY-MM-DD>`) whenever:
+
+- A significant decision is made.
+- A new fact is learned that doesn't fit a specific destination yet.
+- The session is ending (see above).
+
+If today's note does not exist, create it with frontmatter:
+
+```yaml
+---
+title: YYYY-MM-DD
+type: daily
+permalink: daily/YYYY-MM-DD
+tags: [daily]
+---
+```
 
 ## File format
 
